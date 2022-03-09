@@ -1,0 +1,41 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.buttons {
+  text-align: center;
+  margin: 0;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: inherit;
+  width: 100%;
+  padding: 7px;
+}
+
+#submit-button {
+  background: #45a894;
+}
+
+#current-weather {
+  background: #1d75be;
+}
+
+#submit-button,
+#current-weather {
+  color: white;
+  border-radius: 9px;
+}
+#user-city-input {
+  margin: 0;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: inherit;
+  width: 100%;
+  padding: 7px;
+  text-align: right;
+}
+#weather-image {
+  width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
