@@ -32,8 +32,6 @@ function changeTime() {
   changeCurrentTime.innerHTML = `${currentDate}`;
 }
 
-changeTime();
-
 function userCityAlert(event) {
   event.preventDefault();
   let city = document.querySelector("#user-city-input");
@@ -51,8 +49,14 @@ function showTemperature(response) {
   temperatureElement.innerHTML = `${roundedTemp}`;
 }
 
-let form = document.querySelector("#user-city-form");
-form.addEventListener("submit", userCityAlert);
+function currentWeather(response) {
+  let roundedTemp = Math.round(response.data.main.temp);
+  let city = response.data.name;
+  let temperatureElement = document.querySelector("#today-temp");
+  let currentCity = document.querySelector("#current-city-name");
+  temperatureElement.innerHTML = roundedTemp;
+  currentCity.innerHTML = city;
+}
 
 function showPosition(position) {
   let lat = position.coords.latitude;
@@ -63,33 +67,15 @@ function showPosition(position) {
   axios.get(apiUrl).then(currentWeather);
 }
 
-function currentWeather(response) {
-  let roundedTemp = Math.round(response.data.main.temp);
-  let city = response.data.name;
-  let temperatureElement = document.querySelector("#today-temp");
-  let currentCity = document.querySelector("#current-city-name");
-  temperatureElement.innerHTML = roundedTemp;
-  currentCity.innerHTML = city;
+function getCurrentLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(showPosition);
 }
-navigator.geolocation.getCurrentPosition(showPosition);
+
+changeTime();
+
+let form = document.querySelector("#user-city-form");
+form.addEventListener("submit", userCityAlert);
 
 let currentLocation = document.querySelector("#current-weather");
-currentLocation.addEventListener = ("click", currentWeather);
-
-//{"coord":{"lon":-123.156,"lat":49.2705},
-//"weather":[{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],
-//"base":"stations",
-//"main":{"temp":9.58,"feels_like":8.28,"temp_min":6.88,"temp_max":11.99,"pressure":1032,"humidity":73},
-//"visibility":10000,
-//"wind":{"speed":2.57,"deg":280},
-//"clouds":{"all":75},
-//"dt":1646613611,
-//"sys":{"type":2,
-//"id":2011597,
-//"country":"CA",
-//"sunrise":1646577887,
-//"sunset":1646618592},
-//"timezone":-28800,
-//"id":6173331,
-//"name":"Vancouver",
-//"cod":200}
+currentLocation.addEventListener = ("click", getCurrentLocation);
