@@ -12,6 +12,9 @@ body {
   padding: 7px;
 }
 
+.futureTemp {
+  font-size: 12px;
+}
 #submit-button {
   background: #45a894;
 }
@@ -35,7 +38,6 @@ body {
   text-align: right;
 }
 #weather-image {
-  width: 100%;
-  height: auto;
+  width: 80%;
   margin: 0px auto;
 }
