@@ -20,58 +20,86 @@
   </head>
   <body>
     <div class="container">
-      <h1>Weather Forecast</h1>
-      <div class="card">
-        <div class="card-body">
-          <form id="user-city-form">
-            <div class="row">
-              <div class="col-8" width="120px">
-                <input type="text" value="Enter City" id="user-city-input" />
-              </div>
-              <div class="col-2">
-                <input
-                  class="buttons"
-                  type="submit"
-                  value="Submit"
-                  id="submit-button"
-                />
-              </div>
-              <div class="col-2">
-                <input
-                  class="buttons"
-                  type="submit"
-                  value="Current"
-                  id="current-weather"
-                />
-              </div>
+      <div class="weather-app-wrapper">
+        <div class="weather-app">
+          <h1>Weather Forecast</h1>
+          <div class="card">
+            <div class="card-body">
+              <form id="user-city-form">
+                <div class="row">
+                  <div class="col-8" width="120px">
+                    <input
+                      type="text"
+                      value="Enter City"
+                      id="user-city-input"
+                    />
+                  </div>
+                  <div class="col-2">
+                    <input
+                      class="buttons"
+                      type="submit"
+                      value="Submit"
+                      id="submit-button"
+                    />
+                  </div>
+                  <div class="col-2">
+                    <input
+                      class="buttons"
+                      type="submit"
+                      value="Current"
+                      id="current-weather"
+                    />
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="wrapper">
-            <div class="row">
-              <div class="col-7">
-                <div class="box1">
-                  <h2 class="city" id="current-city-name">Paris</h2>
-                  <p class="date" id="today-date">Today's date</p>
-                  <p class="today-sunrise">Sunrise: 8am</p>
-                  <p class="today-sunset">Sunset: 8pm</p>
-                  <p class="today-precipitation">Precipitation: 75%</p>
-                  <h2>
-                    Today <span id="today-temp">25</span>
-                    <a href="#" id="celsius-temp">°C</a>
-                  </h2>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="wrapper">
+                <div class="row">
+                  <div class="col-7">
+                    <div class="box1">
+                      <h2 class="city" id="current-city-name">Paris</h2>
+                      <p class="time" id="now-time">Time</p>
+                      <p class="date" id="today-date">Today's date</p>
+                      <br />
+                      <ul>
+                        <li class="todaySunrise">
+                          Sunrise: <span id="today-sunrise">8am</span>
+                        </li>
+                        <li class="todaySunset">
+                          Sunset: <span id="today-sunset">8am</span>
+                        </li>
+                        <li class="todayPrecipitation">
+                          Precipitation: <span id="today-sunset">75%</span>
+                        </li>
+                      </ul>
+
+                      <br />
+                      <h2 class="todayTemp">
+                        Today <span id="today-temp">25</span>
+                        <span class="temperatureUnits"
+                          ><a href="#" id="celsius-temp">°C</a>|<a
+                            href="#"
+                            id="fahrenheit-temp"
+                            >°F</a
+                          ></span
+                        >
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <img
+                      src="images/sunny.png"
+                      alt="sunny"
+                      id="weather-image"
+                    />
+                  </div>
                 </div>
               </div>
-              <div class="col-5">
-                <img src="images/sunny.png" alt="sunny" id="weather-image" />
-              </div>
             </div>
-
-            <br />
-            <div class="row">
+            <div class="row" id="future-weather-row">
               <div class="col-2">
                 Day 2
                 <div class="futureTemp">28°C</div>
@@ -118,12 +146,12 @@
             </div>
           </div>
         </div>
+        <small>
+          <a href="https://github.com/GraceJ0105/SheCodes-Plus" target="_blank">
+            Open-Source code</a
+          >, by Grace Johnson
+        </small>
       </div>
-      <small>
-        <a href="https://github.com/GraceJ0105/SheCodes-Plus" target="_blank">
-          Open-Source code</a
-        >, by Grace Johnson
-      </small>
     </div>
 
     <script src="src/ap.js"></script>

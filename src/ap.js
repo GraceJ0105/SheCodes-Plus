@@ -1,6 +1,6 @@
 function changeTime() {
   let now = new Date();
-  let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri"];
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   let day = days[now.getDay()];
   let year = now.getFullYear();
   let hours = now.getHours();
@@ -27,9 +27,12 @@ function changeTime() {
   ];
   let month = months[now.getMonth()];
   let date = now.getDate();
-  let currentDate = `${day} ${month} ${date}, ${year}, ${hours}:${minutes}`;
-  let changeCurrentTime = document.querySelector("#today-date");
-  changeCurrentTime.innerHTML = `${currentDate}`;
+  let nowTime = `${day}, ${hours}:${minutes}`;
+  let currentDate = `${month} ${date}, ${year}`;
+  let changeNowTime = document.querySelector("#now-time");
+  changeNowTime.innerHTML = `${nowTime}`;
+  let changeCurrentDate = document.querySelector("#today-date");
+  changeCurrentDate.innerHTML = `${currentDate}`;
 }
 
 function userCityAlert(event) {
