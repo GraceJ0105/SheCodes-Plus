@@ -49,9 +49,8 @@ function handleSubmit(event) {
 }
 
 function updateWeather(response) {
-  console.log(response.data);
   let cityName = document.querySelector("#current-city-name");
-  let roundedTemp = Math.round(response.data.main.temp);
+  let roundedCelsiusTemp = Math.round(response.data.main.temp);
   let temperatureElement = document.querySelector("#today-temp");
   let conditionElement = document.querySelector("#weather-condition");
   let condition = response.data.weather[0].main;
@@ -62,7 +61,7 @@ function updateWeather(response) {
   feelsLikeElement.innerHTML = `${feelsLikeTemp}`;
   windElement.innerHTML = `${wind}`;
   conditionElement.innerHTML = `${condition}`;
-  temperatureElement.innerHTML = `${roundedTemp}`;
+  temperatureElement.innerHTML = `${roundedCelsiusTemp}`;
   cityName.innerHTML = `${response.data.name}`;
   let weatherImageElement = document.querySelector("#weather-image");
   let weatherImageIcon = response.data.weather[0].icon;
@@ -94,14 +93,10 @@ function updateWeather(response) {
 }
 
 function searchLocation(position) {
-  console.log(position);
-  console.log(position.coords.latitude);
-  console.log(position.coords.longitude);
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiKey = "4ed117e2336f8bfb81814225ee1d8f37";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-  console.log(apiUrl);
   axios.get(apiUrl).then(updateWeather);
 }
 
@@ -110,7 +105,24 @@ function getCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
-changeTime();
+function changeToFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#today-temp");
+  let fahrenheitTemperature = (roundedCelsiusTemp * 9) / 5 + 32;
+  temperatureElement.innerHTML = fahrenheitTemperature;
+  unitChangeToCelsius.classList.remove("active");
+  unitChangeToFahrenheit.classList.add("active");
+}
+
+function changeToCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#today-temp");
+  temperatureElement.innerHTML = roundedCelsiusTemp;
+  unitChangeToFahrenheit.classList.remove("active");
+  unitChangeToCelsius.classList.add("active");
+}
+
+let roundedCelsiusTemp = null;
 
 let currentLocationButton = document.querySelector("#current-weather-button");
 currentLocationButton.addEventListener("click", getCurrentLocation);
@@ -118,6 +130,13 @@ currentLocationButton.addEventListener("click", getCurrentLocation);
 let form = document.querySelector("#user-city-form");
 form.addEventListener("submit", handleSubmit);
 
+let unitChangeToFahrenheit = document.querySelector("#fahrenheit-temp");
+unitChangeToFahrenheit.addEventListener("click", changeToFahrenheit);
+
+let unitChangeToCelsius = document.querySelector("#celsius-temp");
+unitChangeToCelsius.addEventListener("click", changeToCelsius);
+changeTime();
+search("Paris");
 //let sunrise = response.data.sys.sunrise;
 // Create a new JavaScript Date object based on the timestamp
 // multiplied by 1000 so that the argument is in milliseconds, not seconds.

@@ -42,6 +42,14 @@ ul {
 .futureTemp {
   font-size: 12px;
 }
+
+.todayTemp .active {
+  color: #70757a;
+  text-decoration: none;
+}
+.todayTemp .active:hover {
+  cursor: default;
+}
 #submit-button {
   background: #45a894;
 }
