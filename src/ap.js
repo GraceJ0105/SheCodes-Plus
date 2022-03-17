@@ -36,7 +36,7 @@ function changeTime() {
 }
 
 function search(city) {
-  let apiKey = "02a3e153b68431fbb188627f7c3c24b7";
+  let apiKey = "4ed117e2336f8bfb81814225ee1d8f37";
   let units = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
   axios.get(apiUrl).then(updateWeather);
@@ -49,6 +49,7 @@ function handleSubmit(event) {
 }
 
 function updateWeather(response) {
+  console.log(response.data);
   let cityName = document.querySelector("#current-city-name");
   let roundedTemp = Math.round(response.data.main.temp);
   let temperatureElement = document.querySelector("#today-temp");
@@ -77,21 +78,27 @@ function updateWeather(response) {
   //console.log(formattedSunriseTime);
 }
 
-function showPosition(position) {
-  let apiKey = "02a3e153b68431fbb188627f7c3c24b7";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+function searchLocation(position) {
+  console.log(position);
+  console.log(position.coords.latitude);
+  console.log(position.coords.longitude);
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let apiKey = "4ed117e2336f8bfb81814225ee1d8f37";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
   axios.get(apiUrl).then(updateWeather);
 }
 
 function getCurrentLocation(event) {
   event.preventDefault();
-  navigator.geolocation.getCurrentPosition(showPosition);
+  navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
 changeTime();
 
-let currentLocation = document.querySelector("#current-weather");
-currentLocation.addEventListener = ("click", getCurrentLocation);
+let currentLocationButton = document.querySelector("#current-weather-button");
+currentLocationButton.addEventListener = ("click", getCurrentLocation);
 
 let form = document.querySelector("#user-city-form");
 form.addEventListener("submit", handleSubmit);
