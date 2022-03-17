@@ -64,18 +64,33 @@ function updateWeather(response) {
   conditionElement.innerHTML = `${condition}`;
   temperatureElement.innerHTML = `${roundedTemp}`;
   cityName.innerHTML = `${response.data.name}`;
-  //let sunrise = response.data.sys.sunrise;
-  // Create a new JavaScript Date object based on the timestamp
-  // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-  //let date = new Date(sunrise * 1000);
-  // Hours part from the timestamp
-  //let hours = date.getHours();
-  // Minutes part from the timestamp
-  //let minutes = "0" + date.getMinutes();
-  // Will display time in 10:30 format
-  //let formattedSunriseTime = hours + ":" + minutes.substr(-2);
-  // expected output "3:19:27 PM"
-  //console.log(formattedSunriseTime);
+  let weatherImageElement = document.querySelector("#weather-image");
+  let weatherImageIcon = response.data.weather[0].icon;
+  if (
+    weatherImageIcon === "09d" ||
+    weatherImageIcon === "09n" ||
+    weatherImageIcon === "10d" ||
+    weatherImageIcon === "10n"
+  ) {
+    weatherImageElement.setAttribute("src", "images/rain.png");
+  } else if (weatherImageIcon === "01d" || weatherImageIcon === "01n") {
+    weatherImageElement.setAttribute("src", "images/sunny.png");
+  } else if (weatherImageIcon === "02d" || weatherImageIcon === "02n") {
+    weatherImageElement.setAttribute("src", "images/overcast.png");
+  } else if (
+    weatherImageIcon === "03d" ||
+    weatherImageIcon === "03n" ||
+    weatherImageIcon === "04d" ||
+    weatherImageIcon === "04n"
+  ) {
+    weatherImageElement.setAttribute("src", "images/cloudy.png");
+  } else if (weatherImageIcon === "13d" || weatherImageIcon === "13n") {
+    weatherImageElement.setAttribute("src", "images/snow.png");
+  } else if (weatherImageIcon === "11d" || weatherImageIcon === "11n") {
+    weatherImageElement.setAttribute("src", "images/thunderstorm.png");
+  } else if (weatherImageIcon === "50d" || weatherImageIcon === "50n") {
+    weatherImageElement.setAttribute("src", "images/mist.png");
+  }
 }
 
 function searchLocation(position) {
@@ -98,7 +113,20 @@ function getCurrentLocation(event) {
 changeTime();
 
 let currentLocationButton = document.querySelector("#current-weather-button");
-currentLocationButton.addEventListener = ("click", getCurrentLocation);
+currentLocationButton.addEventListener("click", getCurrentLocation);
 
 let form = document.querySelector("#user-city-form");
 form.addEventListener("submit", handleSubmit);
+
+//let sunrise = response.data.sys.sunrise;
+// Create a new JavaScript Date object based on the timestamp
+// multiplied by 1000 so that the argument is in milliseconds, not seconds.
+//let date = new Date(sunrise * 1000);
+// Hours part from the timestamp
+//let hours = date.getHours();
+// Minutes part from the timestamp
+//let minutes = "0" + date.getMinutes();
+// Will display time in 10:30 format
+//let formattedSunriseTime = hours + ":" + minutes.substr(-2);
+// expected output "3:19:27 PM"
+//console.log(formattedSunriseTime);
