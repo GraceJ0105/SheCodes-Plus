@@ -30,8 +30,9 @@
                   <div class="col-8" width="120px">
                     <input
                       type="text"
-                      value="Enter City"
+                      placeholder="Enter City"
                       id="user-city-input"
+                      autocomplete="off"
                     />
                   </div>
                   <div class="col-2">
@@ -65,14 +66,15 @@
                       <p class="date" id="today-date">Today's date</p>
                       <br />
                       <ul>
-                        <li class="todaySunrise">
-                          Sunrise: <span id="today-sunrise">8am</span>
+                        <li class="condition">
+                          <span id="weather-condition"></span>
                         </li>
-                        <li class="todaySunset">
-                          Sunset: <span id="today-sunset">8am</span>
+                        <li class="windSpeed">
+                          Wind Speed: <span id="wind-speed"></span>km/h
                         </li>
-                        <li class="todayPrecipitation">
-                          Precipitation: <span id="today-sunset">75%</span>
+
+                        <li class="feelsLike">
+                          Feels Like: <span id="feels-like-temp"></span>°C
                         </li>
                       </ul>
 
