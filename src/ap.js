@@ -50,7 +50,7 @@ function handleSubmit(event) {
 
 function updateWeather(response) {
   let cityName = document.querySelector("#current-city-name");
-  let roundedCelsiusTemp = Math.round(response.data.main.temp);
+  roundedCelsiusTemp = Math.round(response.data.main.temp);
   let temperatureElement = document.querySelector("#today-temp");
   let conditionElement = document.querySelector("#weather-condition");
   let condition = response.data.weather[0].main;
@@ -135,6 +135,7 @@ unitChangeToFahrenheit.addEventListener("click", changeToFahrenheit);
 
 let unitChangeToCelsius = document.querySelector("#celsius-temp");
 unitChangeToCelsius.addEventListener("click", changeToCelsius);
+
 changeTime();
 search("Paris");
 //let sunrise = response.data.sys.sunrise;
