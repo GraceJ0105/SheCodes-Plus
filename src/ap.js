@@ -1,6 +1,14 @@
 function changeTime() {
   let now = new Date();
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   let day = days[now.getDay()];
   let year = now.getFullYear();
   let hours = now.getHours();
@@ -63,8 +71,13 @@ function updateWeather(response) {
   conditionElement.innerHTML = `${condition}`;
   temperatureElement.innerHTML = `${roundedCelsiusTemp}`;
   cityName.innerHTML = `${response.data.name}`;
-  let weatherImageElement = document.querySelector("#weather-image");
   let weatherImageIcon = response.data.weather[0].icon;
+  formatMainWeatherImage(weatherImageIcon);
+  getForecast(response);
+}
+
+function formatMainWeatherImage(weatherImageIcon) {
+  let weatherImageElement = document.querySelector("#weather-image");
   if (
     weatherImageIcon === "09d" ||
     weatherImageIcon === "09n" ||
@@ -92,6 +105,116 @@ function updateWeather(response) {
   }
 }
 
+function getForecast(coordinates) {
+  let apiKey = "4ed117e2336f8bfb81814225ee1d8f37";
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.data.coord.lat}&lon=${coordinates.data.coord.lon}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function formatTimestamp(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
+  let dailyForecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast-row");
+  let forecastHTML = `<div class="row">`;
+
+  dailyForecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      let forecastWeatherIconHTML = "";
+      if (
+        forecastDay.weather[0].icon === "09d" ||
+        forecastDay.weather[0].icon === "09n" ||
+        forecastDay.weather[0].icon === "10d" ||
+        forecastDay.weather[0].icon === "10n"
+      ) {
+        forecastWeatherIconHTML = `  <img
+                      src="images/rain.png"
+                      alt="rainy"
+                      class="forecast-image"
+                    />`;
+      } else if (
+        forecastDay.weather[0].icon === "01d" ||
+        forecastDay.weather[0].icon === "01n"
+      ) {
+        forecastWeatherIconHTML = `  <img
+                      src="images/sunny.png"
+                      alt="sunny"
+                      class="forecast-image"
+                    />`;
+      } else if (
+        forecastDay.weather[0].icon === "02d" ||
+        forecastDay.weather[0].icon === "02n"
+      ) {
+        forecastWeatherIconHTML = `  <img
+                      src="images/overcast.png"
+                      alt="overcast"
+                      class="forecast-image"
+                    />`;
+      } else if (
+        forecastDay.weather[0].icon === "03d" ||
+        forecastDay.weather[0].icon === "03n" ||
+        forecastDay.weather[0].icon === "04d" ||
+        forecastDay.weather[0].icon === "04n"
+      ) {
+        forecastWeatherIconHTML = `  <img
+                      src="images/cloudy.png"
+                      alt="cloudy"
+                      class="forecast-image"
+                    />`;
+      } else if (
+        forecastDay.weather[0].icon === "13d" ||
+        forecastDay.weather[0].icon === "13n"
+      ) {
+        forecastWeatherIconHTML = `  <img
+                      src="images/snow.png"
+                      alt="snow"
+                      class="forecast-image"
+                    />`;
+      } else if (
+        forecastDay.weather[0].icon === "11d" ||
+        forecastDay.weather[0].icon === "11n"
+      ) {
+        forecastWeatherIconHTML = `  <img
+                      src="images/thunderstorm.png"
+                      alt="thunder"
+                      class="forecast-image"
+                    />`;
+      } else if (
+        forecastDay.weather[0].icon === "50d" ||
+        forecastDay.weather[0].icon === "50n"
+      ) {
+        forecastWeatherIconHTML = `  <img
+                      src="images/mist.png"
+                      alt="mist"
+                      class="forecast-image"
+                    />`;
+      }
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
+                <div class="future-day">${formatTimestamp(forecastDay.dt)}</div>
+               
+                <div class="futureTemp">
+                  <span class="future-temp-max">${Math.round(
+                    forecastDay.temp.max
+                  )}°C</span>
+                  <span class="future-temp-min">${Math.round(
+                    forecastDay.temp.min
+                  )}°C</span> </div>
+                  <div class="futureWeatherIcon">${forecastWeatherIconHTML}</div>                
+              </div>`;
+    }
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function searchLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -109,7 +232,7 @@ function changeToFahrenheit(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#today-temp");
   let fahrenheitTemperature = (roundedCelsiusTemp * 9) / 5 + 32;
-  temperatureElement.innerHTML = fahrenheitTemperature;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
   unitChangeToCelsius.classList.remove("active");
   unitChangeToFahrenheit.classList.add("active");
 }
@@ -138,15 +261,3 @@ unitChangeToCelsius.addEventListener("click", changeToCelsius);
 
 changeTime();
 search("Paris");
-//let sunrise = response.data.sys.sunrise;
-// Create a new JavaScript Date object based on the timestamp
-// multiplied by 1000 so that the argument is in milliseconds, not seconds.
-//let date = new Date(sunrise * 1000);
-// Hours part from the timestamp
-//let hours = date.getHours();
-// Minutes part from the timestamp
-//let minutes = "0" + date.getMinutes();
-// Will display time in 10:30 format
-//let formattedSunriseTime = hours + ":" + minutes.substr(-2);
-// expected output "3:19:27 PM"
-//console.log(formattedSunriseTime);

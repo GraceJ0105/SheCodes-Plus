@@ -10,6 +10,13 @@ ul {
   color: #70757a;
   line-height: 1.5;
 }
+.today {
+  font-weight: 300;
+}
+
+.col-7 {
+  font-weight: 300;
+}
 .time,
 .date {
   font-size: 14px;
@@ -40,7 +47,7 @@ ul {
 }
 
 .futureTemp {
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .todayTemp .active {
@@ -50,6 +57,31 @@ ul {
 .todayTemp .active:hover {
   cursor: default;
 }
+.future-day {
+  font-size: 18px;
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+.future-temp-min {
+  opacity: 0.7;
+}
+
+.futureTemp {
+  font-size: 9px;
+  font-weight: 100;
+}
+
+.forecast-image {
+  width: 40px;
+  margin: 5px auto;
+}
+.temperatureUnits {
+  position: relative;
+  font-size: 12px;
+  top: -14px;
+}
+
 #submit-button {
   background: #45a894;
 }
@@ -78,18 +110,17 @@ ul {
   width: 80%;
 }
 
-.temperatureUnits {
-  position: relative;
-  font-size: 12px;
-  top: -14px;
-}
-
 #now-time,
 #today-date {
   line-height: 1px;
   font-size: 14px;
 }
 
-#future-weather-row {
-  padding: 0px 0px 10px 10px;
+#forecast-row {
+  margin-top: 5px;
+  text-align: center;
+}
+
+#code-link {
+  text-decoration: none;
 }
