@@ -72,6 +72,11 @@ function updateWeather(response) {
   temperatureElement.innerHTML = `${roundedCelsiusTemp}`;
   cityName.innerHTML = `${response.data.name}`;
   let weatherImageIcon = response.data.weather[0].icon;
+  if (unitChangeToFahrenheit.classList.contains("active")) {
+    unitChangeToCelsius.classList.add("active");
+    unitChangeToFahrenheit.classList.remove("active");
+  }
+
   formatMainWeatherImage(weatherImageIcon);
   getForecast(response);
 }
